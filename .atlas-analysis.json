@@ -1,0 +1,40 @@
+{
+  "projectType": "general",
+  "projectName": "DeepSeek V4 Roleplay Instruct",
+  "projectDescription": "A guide to special control instructions for switching thinking chain styles in DeepSeek-V4 roleplay (角色扮演) mode.",
+  "theme": "luma",
+  "primaryColor": "#4D6BFE",
+  "lightColor": "#EEF1FF",
+  "darkColor": "#1A2563",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Introduction",
+        "pages": ["introduction", "modes-overview"]
+      },
+      {
+        "group": "Usage Guide",
+        "pages": ["web-usage", "api-usage"]
+      },
+      {
+        "group": "Reference",
+        "pages": ["instructions-reference", "faq"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Three thinking modes: default, character immersion (角色沉浸), and pure analysis (纯分析)",
+    "Copy-paste ready control instruction strings for each mode",
+    "Works in DeepSeek official app/web expert mode and deepseek-v4-flash / deepseek-v4-pro APIs",
+    "Instructions persist across conversation turns via context history",
+    "Python API integration example with helper functions"
+  ],
+  "publicApiSurface": [
+    "INNER_OS_MARKER — instruction string for character immersion mode",
+    "NO_INNER_OS_MARKER — instruction string for pure analysis mode",
+    "build_messages(system_prompt, user_first_message, mode) — helper to inject marker into first user message",
+    "mode='default' — no marker appended",
+    "mode='inner_os' — appends INNER_OS_MARKER",
+    "mode='no_inner_os' — appends NO_INNER_OS_MARKER"
+  ]
+}

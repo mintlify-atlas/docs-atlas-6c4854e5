@@ -1,0 +1,93 @@
+---
+title: "Control instruction strings: copy-paste reference"
+description: "The exact instruction strings for character immersion and pure analysis modes in DeepSeek V4 Roleplay Instruct, with Python constants and placement guidance."
+---
+
+This page contains the complete, verbatim instruction strings for each mode. Copy them exactly as written — even a single character difference can affect reliability. For a conceptual explanation of what each mode does, see [Modes overview](/modes-overview). For step-by-step usage guides, see [Web usage](/web-usage) and [API usage](/api-usage).
+
+<Warning>
+  Place the instruction at the end of your **first user message**, not in the system prompt. The model was trained with the instruction injected at this position. Placing it in the system prompt instead reduces effectiveness.
+</Warning>
+
+<Note>
+  These instructions are probabilistic — they stably increase the chance of triggering the intended thinking mode but cannot guarantee it on every single turn. If a response does not reflect the expected mode, simply retry the message.
+</Note>
+
+<Tabs>
+  <Tab title="Character immersion">
+    ## Character immersion mode
+
+    In character immersion mode the model's `<think>` block becomes a continuous stream of first-person inner monologue. Every thought is expressed from inside the character's perspective, with emotional reactions and internal sensations wrapped in parentheses — for example `（心想：……）` or `(内心OS：……)`. Logical planning steps are replaced by felt experience.
+
+    Use this mode when emotional authenticity is the priority: romance scenes, high-tension confrontations, or any moment where the character's unspoken inner state should shape the reply.
+
+    **Instruction string**
+
+    ```text
+    【角色沉浸要求】在你的思考过程（<think>标签内）中，请遵守以下规则：
+    1. 请以角色第一人称进行内心独白，用括号包裹内心活动，例如"（心想：……）"或"(内心OS：……)"
+    2. 用第一人称描写角色的内心感受，例如"我心想""我觉得""我暗自"等
+    3. 思考内容应沉浸在角色中，通过内心独白分析剧情和规划回复
+    ```
+
+    **Python constant**
+
+    ```python
+    INNER_OS_MARKER = (
+        "\n\n【角色沉浸要求】在你的思考过程（<think>标签内）中，请遵守以下规则：\n"
+        "1. 请以角色第一人称进行内心独白，用括号包裹内心活动，例如"（心想：……）"或"(内心OS：……)"\n"
+        "2. 用第一人称描写角色的内心感受，例如"我心想""我觉得""我暗自"等\n"
+        "3. 思考内容应沉浸在角色中，通过内心独白分析剧情和规划回复"
+    )
+    ```
+
+    Append `INNER_OS_MARKER` to the content of your first user message. The leading `\n\n` adds the blank-line separator automatically.
+  </Tab>
+
+  <Tab title="Pure analysis">
+    ## Pure analysis mode
+
+    In pure analysis mode the model's `<think>` block becomes a structured planning brief. Every line is an objective analytical note — scene diagnosis, response strategy, format targets. First-person inner dialogue, emotional parentheticals, and role-play inner monologue are explicitly prohibited.
+
+    Use this mode when structural consistency matters: long-running API integrations, multi-character scenes, or any situation where predictable reply length and format take priority over spontaneous emotional texture.
+
+    **Instruction string**
+
+    ```text
+    【思维模式要求】在你的思考过程（<think>标签内）中，请遵守以下规则：
+    1. 禁止使用圆括号包裹内心独白，例如"（心想：……）"或"(内心OS：……)"，所有分析内容直接陈述即可
+    2. 禁止以角色第一人称描写内心活动，例如"我心想""我觉得""我暗自"等，请用分析性语言替代
+    3. 思考内容应聚焦于剧情走向分析和回复内容规划，不要在思考中进行角色扮演式的内心戏表演
+    ```
+
+    **Python constant**
+
+    ```python
+    NO_INNER_OS_MARKER = (
+        "\n\n【思维模式要求】在你的思考过程（<think>标签内）中，请遵守以下规则：\n"
+        "1. 禁止使用圆括号包裹内心独白，例如"（心想：……）"或"(内心OS：……)"，所有分析内容直接陈述即可\n"
+        "2. 禁止以角色第一人称描写内心活动，例如"我心想""我觉得""我暗自"等，请用分析性语言替代\n"
+        "3. 思考内容应聚焦于剧情走向分析和回复内容规划，不要在思考中进行角色扮演式的内心戏表演"
+    )
+    ```
+
+    Append `NO_INNER_OS_MARKER` to the content of your first user message. The leading `\n\n` adds the blank-line separator automatically.
+  </Tab>
+</Tabs>
+
+## Where to place the instruction
+
+Append the instruction to the end of your first user message, separated by a blank line:
+
+```text
+「我推开咖啡店的门，看到你正在擦吧台。」"你好，请问还有位置吗？"
+
+【角色沉浸要求】在你的思考过程（<think>标签内）中，请遵守以下规则：
+1. 请以角色第一人称进行内心独白，用括号包裹内心活动，例如"（心想：……）"或"(内心OS：……)"
+2. 用第一人称描写角色的内心感受，例如"我心想""我觉得""我暗自"等
+3. 思考内容应沉浸在角色中，通过内心独白分析剧情和规划回复
+```
+
+You do not need to repeat the instruction in later messages. DeepSeek V4 keeps the full conversation in its context window, so the instruction remains active for the entire session.
+
+For detailed usage walkthroughs, see [Web usage](/web-usage) and [API usage](/api-usage).

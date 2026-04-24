@@ -1,0 +1,131 @@
+---
+title: "DeepSeek V4 thinking modes: compare all three"
+description: "A detailed comparison of DeepSeek V4 Roleplay Instruct's three thinking modes — what each one produces, when to choose it, and real think-block output examples."
+---
+
+DeepSeek V4 Roleplay Instruct gives you control over which of three thinking modes the model uses during a roleplay session. Each mode changes what appears inside the hidden `<think>` block — the model's internal reasoning step — which in turn shapes the texture and structure of the final reply. You activate a mode by appending a single instruction string to your first user message; see [Instructions reference](/instructions-reference) for the exact strings.
+
+<Tabs>
+  <Tab title="Default">
+    ## Default mode
+
+    In default mode you add nothing to your message. The model reads the scene and automatically decides how to structure its thinking based on perceived complexity. Simple exchanges may get brief, mostly analytical thoughts; emotionally charged or narratively rich scenes may produce more immersive inner monologue.
+
+    **What it produces**
+
+    The `<think>` block is unpredictable in style. The model may blend analytical notes and character monologue in the same thinking pass, or lean heavily one way depending on context.
+
+    **When to use it**
+
+    Choose default mode when:
+    - You are experimenting and do not have a strong preference for thinking style.
+    - The conversation mixes different scene types (action, dialogue, introspection) and you want the model to adapt naturally.
+    - You are new to the project and want to observe the baseline before tuning.
+
+    **Example `<think>` output**
+
+    ```text
+    场景是日常打招呼，角色有点傲娇。
+    （他跟我说话了……）
+    策略：先冷淡，再暴露真情。
+    ```
+
+    The model blends a planning line with an in-character parenthetical — you get both styles mixed together.
+
+    <Tip>
+      Start with default mode for your first session to calibrate expectations. Once you know whether the output feels too cold or too unstructured, switch to the mode that corrects it.
+    </Tip>
+  </Tab>
+
+  <Tab title="Character immersion">
+    ## Character immersion mode (角色沉浸)
+
+    Character immersion mode makes the model think like an actor fully inhabiting the role. Every thought inside the `<think>` block is expressed from the character's point of view, with emotional reactions and inner sensations wrapped in parentheses.
+
+    **What it produces**
+
+    The `<think>` block reads as a continuous stream of in-character inner monologue. Logical planning is minimal or entirely absent; the model arrives at its reply by living through the character's moment rather than by outlining it.
+
+    **When to use it**
+
+    Choose character immersion mode when:
+    - Emotional authenticity is the top priority (romance, trauma, tension scenes).
+    - You want replies that feel spontaneous and character-driven rather than structured.
+    - The scene calls for subtle emotional subtext — reactions the character would not say aloud.
+
+    **Example `<think>` output**
+
+    ```text
+    （他跟我打招呼了……心跳加速。）
+    我要装作不在意的样子回应。
+    （不能让他看出来我很高兴！）
+    ```
+
+    Every line is the character's inner voice. There is no director's note, no word-count target — only what the character feels and resolves to do.
+
+    <Tip>
+      Character immersion mode is the right choice when the character's emotional state is central to the scene. If you find the replies feel inconsistent in structure (varying length, unpredictable pacing), switch to pure analysis mode and come back to immersion for emotionally pivotal moments.
+    </Tip>
+  </Tab>
+
+  <Tab title="Pure analysis">
+    ## Pure analysis mode (纯分析)
+
+    Pure analysis mode makes the model think like a director or screenwriter watching the scene from the outside. The `<think>` block contains only structured logical planning: scene diagnosis, response strategy, format targets. There are no in-character thoughts or emotional parentheticals.
+
+    **What it produces**
+
+    The `<think>` block reads as a concise production brief. The model identifies what the scene requires and maps out exactly how to construct the reply before writing a single word of it.
+
+    **When to use it**
+
+    Choose pure analysis mode when:
+    - Structural consistency matters more than emotional spontaneity (long-running campaigns, complex multi-character scenes).
+    - You need predictable reply length and format across many turns.
+    - You are debugging a character who drifts out of personality — analysis mode reinforces deliberate choices.
+
+    **Example `<think>` output**
+
+    ```text
+    场景：用户打招呼，角色是傲娇属性。
+    回复策略：先嫌弃，身体语言暴露真情。
+    控制 150 字，先动作描写再对话。
+    ```
+
+    Every line is a planning note. The model knows the scene type, has chosen a strategy, and has set a length constraint before it writes the reply.
+
+    <Tip>
+      Pure analysis mode is the most reliable choice when you need consistent output across many turns or when you are building an API-based application where reply length and structure must stay predictable. The tradeoff is that spontaneous emotional texture is reduced.
+    </Tip>
+  </Tab>
+</Tabs>
+
+## Side-by-side comparison
+
+The same scene — a character with tsundere (傲娇) traits being greeted — produces structurally different `<think>` blocks depending on the mode:
+
+```text Character immersion mode
+（他跟我打招呼了……心跳加速。）
+我要装作不在意的样子回应。
+（不能让他看出来我很高兴！）
+```
+
+```text Pure analysis mode
+场景：用户打招呼，角色是傲娇属性。
+回复策略：先嫌弃，身体语言暴露真情。
+控制 150 字，先动作描写再对话。
+```
+
+Both produce a tsundere reply — but the first arrives there through felt experience while the second arrives through deliberate craft. Neither is objectively better; the right choice depends on what the scene demands.
+
+## Choosing a mode
+
+| Goal | Recommended mode |
+|---|---|
+| Emotional authenticity, natural spontaneity | Character immersion |
+| Structural consistency, predictable length | Pure analysis |
+| General exploration, mixed scene types | Default |
+| API integration with stable output format | Pure analysis |
+| High-stakes emotional scene (first meeting, confession) | Character immersion |
+
+For the exact instruction strings to activate each mode, see the [Instructions reference](/instructions-reference).

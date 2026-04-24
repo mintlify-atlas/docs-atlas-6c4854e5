@@ -1,0 +1,69 @@
+---
+title: "DeepSeek V4 Roleplay Instruct: project overview"
+description: "Learn what the DeepSeek V4 Roleplay Instruct control instructions are, which products support them, and how injecting a single string into your first message shapes the model's thinking chain."
+---
+
+DeepSeek V4 Roleplay Instruct is a set of special control instructions that change how the DeepSeek-V4 model thinks during roleplay sessions. You append one short string to your first user message, and the model's hidden `<think>` process shifts to either full character immersion or cold analytical planning — leaving your actual roleplay content completely unchanged.
+
+## What the instructions do
+
+By default, DeepSeek-V4 decides how to approach its thinking based on scene complexity. The control instructions override that automatic decision and lock the thinking chain into one of two explicit styles:
+
+- **Character immersion (角色沉浸)** — the model's `<think>` block reads like an actor's inner monologue, complete with emotional reactions wrapped in parentheses.
+- **Pure analysis (纯分析)** — the model's `<think>` block contains only structured logical planning: scene breakdown, response strategy, length targets.
+
+The final reply the user sees is not changed by the instruction itself, but how the model arrives at that reply — and therefore its emotional texture or structural consistency — shifts significantly depending on the mode.
+
+## Supported products and modes
+
+<Note>
+  These instructions only work when the model has an active thinking (reasoning) phase. Quick mode on the DeepSeek web interface does not generate a `<think>` block, so the instructions have no effect there.
+</Note>
+
+The instructions are supported in the following contexts:
+
+| Context | Supported |
+|---|---|
+| DeepSeek official app — expert mode | Yes |
+| DeepSeek web — expert mode | Yes |
+| `deepseek-v4-flash` API | Yes |
+| `deepseek-v4-pro` API | Yes |
+| DeepSeek web — quick mode | No |
+
+## How triggering works
+
+Triggering is probabilistic. Appending the instruction string reliably increases the likelihood that the model adopts the target thinking style, but it does not guarantee it on every generation. If the thinking chain does not change on the first attempt, re-generate the response — the instruction accumulates effect across retries.
+
+<Note>
+  Because triggering is probabilistic, plan for 1–3 regenerations when the stakes are high. The instruction does not degrade or disappear after a miss; it remains active in the conversation context and continues to influence subsequent turns.
+</Note>
+
+## Core mechanism
+
+Instructions work because the model reads its full conversation history on every turn. You inject the instruction once — at the end of your first user message — and it persists in context for the entire session without you repeating it.
+
+```text first user message structure
+[Your roleplay opening text]
+
+[Blank line]
+[Instruction string from the reference]
+```
+
+The blank line separates your narrative content from the control instruction so the model processes them as distinct elements. Never place the instruction in the system prompt; it was trained to be injected at the user-message level, and system-prompt placement is less reliable.
+
+## Explore the docs
+
+<CardGroup cols={2}>
+  <Card title="Modes overview" icon="sliders" href="/modes-overview">
+    Compare all three thinking modes side by side with real `<think>` block examples.
+  </Card>
+  <Card title="Web usage" icon="browser" href="/web-usage">
+    Step-by-step guide for applying the instructions in the DeepSeek web or app interface.
+  </Card>
+  <Card title="API usage" icon="code" href="/api-usage">
+    Integrate the control instructions into your Python API calls with copy-paste helper functions.
+  </Card>
+  <Card title="Instructions reference" icon="book" href="/instructions-reference">
+    The ready-made instruction strings for character immersion and pure analysis modes.
+  </Card>
+</CardGroup>

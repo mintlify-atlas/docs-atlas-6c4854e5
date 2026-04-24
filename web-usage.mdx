@@ -1,0 +1,61 @@
+---
+title: "Use DeepSeek V4 roleplay instructions on the web"
+description: "How to activate character immersion or analysis mode in the DeepSeek web interface and app by pasting an instruction into your first message."
+---
+
+You can control how DeepSeek V4 thinks during roleplay directly from the chat interface — no API access required. The method works in both the DeepSeek web app and the mobile app, and requires only a single change to your first message.
+
+## How it works
+
+DeepSeek V4 sees the full conversation history on every reply. When you embed an instruction in your first message, it stays in the context window for the entire conversation — you never need to repeat it.
+
+## Enable expert mode and send your first message
+
+<Steps>
+  <Step title="Enable expert mode">
+    Open a new conversation in the DeepSeek web or mobile app. Enable **Expert mode** (专家模式). This exposes the `<think>` block in the model's responses, which is where the instruction takes effect.
+  </Step>
+  <Step title="Write your roleplay opening">
+    Type your roleplay opening message in the input box as you normally would. For example:
+
+    ```text
+    「我推开咖啡店的门，看到你正在擦吧台。」"你好，请问还有位置吗？"
+    ```
+  </Step>
+  <Step title="Add a blank line, then paste the instruction">
+    Press **Shift+Enter** to insert a blank line after your opening, then paste the full instruction string. Your complete first message should look like this:
+
+    ```text
+    「我推开咖啡店的门，看到你正在擦吧台。」"你好，请问还有位置吗？"
+
+    【角色沉浸要求】在你的思考过程（<think>标签内）中，请遵守以下规则：
+    1. 请以角色第一人称进行内心独白，用括号包裹内心活动，例如"（心想：……）"或"(内心OS：……)"
+    2. 用第一人称描写角色的内心感受，例如"我心想""我觉得""我暗自"等
+    3. 思考内容应沉浸在角色中，通过内心独白分析剧情和规划回复
+    ```
+
+    Copy the exact instruction strings from [Instructions reference](/instructions-reference).
+  </Step>
+  <Step title="Send and continue normally">
+    Send the message. For all subsequent turns, type your messages as usual — no changes needed.
+
+    ```text
+    Turn 2: 「我坐到窗边的位置」"来一杯美式。"
+    Turn 3: 「我注意到你手上有一道疤痕」"你的手……没事吧？"
+    ```
+  </Step>
+</Steps>
+
+## Tips
+
+<Tip>
+  **Switch modes:** Want to use a different instruction mode? Open a new conversation and paste a different instruction in the first message. Each conversation is independent.
+</Tip>
+
+<Tip>
+  **Verify the mode is active:** After the model replies, click **View thinking process** to open the `<think>` block. In character immersion mode you should see first-person inner monologue wrapped in parentheses, for example `（心想：……）`. In analysis mode you should see direct analytical text with no role-play inner dialogue.
+</Tip>
+
+<Tip>
+  **No instruction needed:** If you add no instruction at all, the model chooses its thinking style automatically. You only need to paste an instruction when you want to explicitly control the mode.
+</Tip>

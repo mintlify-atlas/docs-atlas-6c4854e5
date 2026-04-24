@@ -1,0 +1,59 @@
+---
+title: "DeepSeek V4 Roleplay Instruct: FAQ"
+description: "Answers to common questions about instruction placement, mode behavior, supported products, and mid-conversation mode switching for DeepSeek V4 Roleplay Instruct."
+---
+
+This page answers the questions that come up most often when using DeepSeek V4 Roleplay Instruct. If you are new to the project, start with [Modes overview](/modes-overview) for a conceptual introduction, then follow [Web usage](/web-usage) or [API usage](/api-usage) for step-by-step setup.
+
+<AccordionGroup>
+  <Accordion title="Can I put the instruction in the system prompt?">
+    It is possible to place the instruction in the system prompt, but it is not recommended. The model was trained with the instruction injected at the end of the first user message — that is where it expects to find it. Placing it in the system prompt instead reduces the reliability of the mode trigger.
+
+    For the most consistent results, always append the instruction to your **first user message**, separated from the rest of your text by a blank line. See [Instructions reference](/instructions-reference) for the exact strings and an example of correct placement.
+  </Accordion>
+
+  <Accordion title="Will the final reply change after I add an instruction?">
+    The instruction only directly controls what happens inside the hidden `<think>` block — the model's internal reasoning step. It does not rewrite the final reply format or impose explicit constraints on the visible output.
+
+    That said, the thinking process does indirectly influence the reply. In character immersion mode the model reasons through the character's felt experience, which tends to produce replies with more authentic emotional texture and spontaneous phrasing. In pure analysis mode the model reasons through a structured planning brief, which tends to produce replies with more consistent length and format. The effect is real but indirect — you are shaping the quality and texture of responses, not enforcing a template.
+  </Accordion>
+
+  <Accordion title="What if the mode doesn't trigger?">
+    These instructions are probabilistic. They stably increase the likelihood of the intended thinking mode but cannot guarantee it on every single turn. If a response does not reflect the mode you selected — for example, if you see plain analytical text when you expected in-character inner monologue — retry the same message.
+
+    A few things that reduce reliability:
+
+    - Placing the instruction in the system prompt instead of the first user message (see above).
+    - Using a platform that does not expose the `<think>` block (see "Which DeepSeek products support these instructions?" below).
+    - Truncating or modifying the instruction string. Copy the full text verbatim from [Instructions reference](/instructions-reference).
+
+    If retrying consistently fails, double-check that you are on a supported platform and that the instruction string is complete and unmodified.
+  </Accordion>
+
+  <Accordion title="Which DeepSeek products support these instructions?">
+    The instructions work in:
+
+    - **DeepSeek official app** (iOS / Android) — with Expert mode enabled
+    - **DeepSeek web** (deepseek.com) — with Expert mode enabled
+    - **deepseek-v4-flash API**
+    - **deepseek-v4-pro API**
+
+    **Quick mode on the DeepSeek web is not supported.** Quick mode does not expose a `<think>` block, so the instruction has nowhere to take effect. Make sure Expert mode (专家模式) is active before sending your first message.
+
+    For a step-by-step guide to enabling Expert mode and sending your first message, see [Web usage](/web-usage). For API integration examples, see [API usage](/api-usage).
+  </Accordion>
+
+  <Accordion title="Do I need to repeat the instruction in follow-up messages?">
+    No. You only need to include the instruction once, at the end of your first user message. DeepSeek V4 keeps the full conversation history in its context window on every turn, so the instruction remains visible to the model throughout the entire session.
+
+    Simply continue the conversation normally from the second message onward — no changes to subsequent messages are required.
+  </Accordion>
+
+  <Accordion title="Can I switch modes mid-conversation?">
+    Not within the same conversation. Because the instruction works by being present in the conversation history from the very first user message, there is no reliable way to override it mid-session.
+
+    To switch modes, start a new conversation and paste the different instruction string at the end of the new first message. Each conversation is independent.
+
+    If you find yourself frequently switching between modes for different scene types, consider whether [default mode](/modes-overview) — which lets the model choose its thinking style automatically — might suit your workflow better than manually managing separate conversations.
+  </Accordion>
+</AccordionGroup>

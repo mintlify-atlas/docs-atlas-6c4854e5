@@ -1,97 +1,44 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "DeepSeek V4 Roleplay Instruct"
+description: "Special control instructions for switching thinking chain styles in DeepSeek-V4 roleplay mode — character immersion or pure analysis."
 ---
 
-## Setting up
+DeepSeek V4 Roleplay Instruct is a guide to special control instructions that let you switch the thinking chain style of DeepSeek-V4 during roleplay (角色扮演) sessions. By appending a short instruction string to your first message, you can steer the model's inner `<think>` process between full character immersion and cold analytical planning — without changing your roleplay content at all.
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Introduction" icon="book-open" href="/introduction">
+    Learn what these control instructions do and when to use them.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Modes overview" icon="sliders" href="/modes-overview">
+    Compare the three thinking modes side by side with output examples.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Web usage" icon="browser" href="/web-usage">
+    Step-by-step guide for using the instructions in the DeepSeek web or app interface.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="API usage" icon="code" href="/api-usage">
+    Integrate the control instructions into your Python API calls with helper functions.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## How it works
 
-Everything you need to create world-class documentation.
+Add one instruction string to the end of your **first user message** in a conversation. The model reads its full conversation history on every turn, so the instruction stays active throughout the entire session without you needing to repeat it.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+<Steps>
+  <Step title="Choose a thinking mode">
+    Decide whether you want the model to think in-character (角色沉浸) or analytically (纯分析), or leave it on the default automatic mode.
+  </Step>
+  <Step title="Copy the instruction string">
+    Copy the ready-made instruction string for your chosen mode from the [Instructions reference](/instructions-reference).
+  </Step>
+  <Step title="Paste at the end of your first message">
+    Add a blank line after your roleplay opening, then paste the instruction. Send the message normally.
+  </Step>
+  <Step title="Continue the conversation naturally">
+    All subsequent messages require no changes. The instruction persists in context automatically.
+  </Step>
+</Steps>
 
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Note>
+  These instructions work in DeepSeek expert mode (web/app) and with the `deepseek-v4-flash` and `deepseek-v4-pro` APIs. Quick mode on the web does not support them.
+</Note>
